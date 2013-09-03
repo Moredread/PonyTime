@@ -37,5 +37,4 @@ before_install:
 #script: mvn install -Pintegration-tests -Dandroid.device=test
 
 script:
-  - mvn test
   - mvn package
