@@ -18,24 +18,33 @@ package name.apb.android.ponynote.java;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.content.Intent;
+import android.widget.Button;
 import android.widget.ListView;
+import name.apb.android.ponynote.scala.AboutDialog;
 import name.apb.android.ponynote.scala.PonyNote;
 import name.apb.android.ponynote.scala.R;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.robolectric.Robolectric;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.shadows.*;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.junit.Assert.assertThat;
 
 @RunWith(RobolectricTestRunner.class)
 public class PonyNoteTest {
+    private PonyNote activity;
+
+    @Before
+    public void setUp() throws Exception {
+        activity = Robolectric.buildActivity(PonyNote.class).create().get();
+    }
+
 
     @Test
     public void checkAppName() throws Exception {
-        PonyNote activity = Robolectric.buildActivity(PonyNote.class).create().get();
-
         String appName = activity.getResources().getString(R.string.app_name);
 
         assertThat(appName, equalTo("Pony Note"));
@@ -43,10 +52,20 @@ public class PonyNoteTest {
 
     @Test
     public void checkListEmptyAtStart() throws Exception {
-        PonyNote activity = Robolectric.buildActivity(PonyNote.class).create().get();
-
         ListView list = activity.noteListView();
 
         assertThat(list.getChildCount(), equalTo(0));
+    }
+
+    @Test
+    public void clickAboutButton() throws Exception {
+        Button aboutButton = (Button) activity.findViewById(R.id.about_button);
+
+        Robolectric.clickOn(aboutButton);
+
+        ShadowActivity shadowActivity = Robolectric.shadowOf(activity);
+        Intent startedIntent = shadowActivity.getNextStartedActivity();
+        ShadowIntent shadowIntent = Robolectric.shadowOf(startedIntent);
+        assertThat(shadowIntent.getComponent().getClassName(), equalTo(AboutDialog.class.getName()));
     }
 }
