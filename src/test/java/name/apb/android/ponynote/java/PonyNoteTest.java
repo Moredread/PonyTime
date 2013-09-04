@@ -18,6 +18,7 @@ package name.apb.android.ponynote.java;
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+import android.widget.ListView;
 import name.apb.android.ponynote.scala.PonyNote;
 import name.apb.android.ponynote.scala.R;
 import org.junit.Test;
@@ -34,7 +35,18 @@ public class PonyNoteTest {
     @Test
     public void checkAppName() throws Exception {
         PonyNote activity = Robolectric.buildActivity(PonyNote.class).create().get();
+
         String appName = activity.getResources().getString(R.string.app_name);
+
         assertThat(appName, equalTo("Pony Note"));
+    }
+
+    @Test
+    public void checkListEmptyAtStart() throws Exception {
+        PonyNote activity = Robolectric.buildActivity(PonyNote.class).create().get();
+
+        ListView list = activity.noteListView();
+
+        assertThat(list.getChildCount(), equalTo(0));
     }
 }
