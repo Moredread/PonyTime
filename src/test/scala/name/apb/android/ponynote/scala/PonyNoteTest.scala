@@ -87,7 +87,12 @@ import java.lang.String
     note1.setNote("Hello")
     note2.setNote("World")
 
-    val helper: DatabaseHelper = activity.getHelper()
+    val dao = activity.getHelper().getNoteDao
+
+    dao.create(note1)
+    dao.create(note2)
+
+    assertThat(dao.countOf, equalTo(2L))
   }
 }
 
