@@ -32,13 +32,53 @@ import org.robolectric.shadows._
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertThat
-import java.lang.String
+import java.lang.{Exception, String}
+import org.robolectric.util.{DatabaseConfig, SQLiteMap}
+import java.sql.ResultSet
+import java.io.File
+import scala.Exception
 
+// Use file db for in memory db
+// BUG: No idea why this is necessary, ORMLite should open file db anyhow, file bug report
+class SQLMap extends DatabaseConfig.DatabaseMap {
+  def getDriverClassName: String = {
+    return "org.sqlite.JDBC"
+  }
+
+  def getConnectionString(file: File): String = {
+    return "jdbc:sqlite:" + file.getAbsolutePath
+  }
+
+  def getMemoryConnectionString: String = {
+    //return "jdbc:sqlite::memory:"
+    return "jdbc:sqlite:test.db"
+  }
+
+  def getSelectLastInsertIdentity: String = {
+    return "SELECT last_insert_rowid() AS id"
+  }
+
+  def getResultSetType: Int = {
+    return ResultSet.TYPE_FORWARD_ONLY
+  }
+}
+
+@DatabaseConfig.UsingDatabaseMap(classOf[SQLMap])
 @RunWith(classOf[RobolectricTestRunner]) class PonyNoteTest {
   private var activity: PonyNote = null
 
   @Before def setUp() {
     activity = Robolectric.buildActivity(classOf[PonyNote]).create.get
+    val helper = activity.getHelper()
+    val dao = helper.getNoteDao
+
+    helper.getWritableDatabase
+
+    // reset database
+    // TODO: recreate via ORMLite, but no idea how to do that
+
+    val allNotes = dao.queryForAll()
+    dao.delete(allNotes)
   }
 
   @Test def checkAppName() {

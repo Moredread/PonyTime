@@ -47,7 +47,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqliteDatabase, ConnectionSource connectionSource) {
         try {
-            TableUtils.createTable(connectionSource, Note.class);
+            // TODO: check if db exists and drop table before creating it
+            // Shouldn't be necessary, as db should not exist for a new application, but with current test setup the db
+            // persists.
+            TableUtils.createTableIfNotExists(connectionSource, Note.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to create databases", e);
         }
