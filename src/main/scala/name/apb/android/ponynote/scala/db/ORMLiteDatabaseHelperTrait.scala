@@ -27,8 +27,8 @@ trait ORMLiteDatabaseHelperTrait[V <: OrmLiteSqliteOpenHelper] extends SActivity
   onDestroy {
     databaseHelper match {
       case Some(_) => {
-        OpenHelperManager.releaseHelper();
-        databaseHelper = None;
+        OpenHelperManager.releaseHelper()
+        databaseHelper = None
         debug("destroyed database helper")
       }
       case None => null
