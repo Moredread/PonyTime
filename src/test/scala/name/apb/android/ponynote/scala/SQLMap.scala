@@ -1,8 +1,6 @@
-package name.apb.android.ponynote.scala
-
-/**
- * name.apb.android.ponynote.scala
- * Copyright (C) 2013  addy
+/*
+ * Pony Note
+ * Copyright (C) 2013  Andre-Patrick Bubel <code@andre-bubel.de>
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -17,6 +15,13 @@ package name.apb.android.ponynote.scala
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+package name.apb.android.ponynote.scala
+
+import java.sql.ResultSet
+import java.io.File
+import org.robolectric.util.DatabaseConfig
+
 // Use file db for in memory db
 // BUG: No idea why this is necessary, ORMLite should open file db anyhow, file bug report
 class SQLMap extends DatabaseConfig.DatabaseMap {

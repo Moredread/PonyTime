@@ -32,45 +32,19 @@ import org.robolectric.shadows._
 import org.hamcrest.CoreMatchers.equalTo
 import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertThat
-import java.lang.{Exception, String}
-import org.robolectric.util.{DatabaseConfig, SQLiteMap}
-import java.sql.ResultSet
-import java.io.File
-import scala.Exception
-
-// Use file db for in memory db
-// BUG: No idea why this is necessary, ORMLite should open file db anyhow, file bug report
-class SQLMap extends DatabaseConfig.DatabaseMap {
-  def getDriverClassName: String = {
-    return "org.sqlite.JDBC"
-  }
-
-  def getConnectionString(file: File): String = {
-    return "jdbc:sqlite:" + file.getAbsolutePath
-  }
-
-  def getMemoryConnectionString: String = {
-    //return "jdbc:sqlite::memory:"
-    return "jdbc:sqlite:test.db"
-  }
-
-  def getSelectLastInsertIdentity: String = {
-    return "SELECT last_insert_rowid() AS id"
-  }
-
-  def getResultSetType: Int = {
-    return ResultSet.TYPE_FORWARD_ONLY
-  }
-}
+import java.lang.String
+import org.robolectric.util.DatabaseConfig
 
 @DatabaseConfig.UsingDatabaseMap(classOf[SQLMap])
 @RunWith(classOf[RobolectricTestRunner]) class PonyNoteTest {
   private var activity: PonyNote = null
+  private var helper: DatabaseHelper = null
+  private var dao: Dao[Note, Integer] = null
 
   @Before def setUp() {
     activity = Robolectric.buildActivity(classOf[PonyNote]).create.get
-    val helper = activity.getHelper()
-    val dao = helper.getNoteDao
+    helper = activity.getHelper()
+    dao = helper.getNoteDao
 
     helper.getWritableDatabase
 
@@ -104,19 +78,7 @@ class SQLMap extends DatabaseConfig.DatabaseMap {
     assertThat(shadowIntent.getComponent.getClassName, equalTo(classOf[AboutDialog].getName))
   }
 
-  @Test def checkDaoGetting() {
-    val helper: DatabaseHelper = activity.getHelper()
-
-    val dao: Dao[Note, Integer] = helper.getNoteDao
-
-    assertNotNull(dao)
-  }
-
   @Test def databaseShouldBeEmptyByDefault() {
-    val helper: DatabaseHelper = activity.getHelper()
-
-    val dao: Dao[Note, Integer] = helper.getNoteDao
-
     assertThat(dao.countOf, equalTo(0L))
   }
 
@@ -126,8 +88,6 @@ class SQLMap extends DatabaseConfig.DatabaseMap {
 
     note1.setNote("Hello")
     note2.setNote("World")
-
-    val dao = activity.getHelper().getNoteDao
 
     dao.create(note1)
     dao.create(note2)
