@@ -1,5 +1,7 @@
 # Pony Note
 
+[![Build Status](https://api.travis-ci.org/Moredread/PonyNote.png)](https://travis-ci.org/Moredread/PonyNote)
+
 A simple android note taking app. Soon(tm) with secure syncing.
 
 ## Hints
