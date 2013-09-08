@@ -61,6 +61,8 @@ class PonyNote extends SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelp
     builder.orderBy(Note.LAST_CHANGED_DATE_COLUMN_NAME, false)
     val list = dao.query(builder.prepare)
 
+    debug("We have " + list.size + " notes")
+
     val noteAdapter: ArrayAdapter[Note] = new ArrayAdapter[Note](this, R.layout.note_row, list) {
       override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
         val v: View = Option(convertView) getOrElse getSystemService(Context.LAYOUT_INFLATER_SERVICE).asInstanceOf[LayoutInflater].inflate(R.layout.note_row, null)
@@ -68,6 +70,8 @@ class PonyNote extends SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelp
 
         v.findViewById(R.id.note_text).asInstanceOf[TextView].setText(note.getNote)
         v.onClick(EditNote.callMeWithNoteId(this.getContext, note.getId))
+
+        debug("Adding note " + position)
 
         return v
       }
