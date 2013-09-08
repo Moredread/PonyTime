@@ -34,17 +34,23 @@ import org.junit.Assert.assertNotNull
 import org.junit.Assert.assertThat
 import java.lang.String
 import org.robolectric.util.DatabaseConfig
+import java.util.Properties
 
 @DatabaseConfig.UsingDatabaseMap(classOf[SQLMap])
 @RunWith(classOf[RobolectricTestRunner]) class PonyNoteTest {
   private var activity: PonyNote = null
   private var helper: DatabaseHelper = null
   private var dao: Dao[Note, Integer] = null
+  private var list: ListView = null
+
+  val props: Properties = System.getProperties
+  props.setProperty("robolectric.logging", "stdout")
 
   @Before def setUp() {
     activity = Robolectric.buildActivity(classOf[PonyNote]).create.get
     helper = activity.getHelper()
     dao = helper.getNoteDao
+    list = activity.noteListView
 
     helper.getWritableDatabase
 
@@ -62,8 +68,6 @@ import org.robolectric.util.DatabaseConfig
   }
 
   @Test def checkListEmptyAtStart() {
-    val list: ListView = activity.noteListView
-
     assertThat(list.getChildCount, equalTo(0))
   }
 
@@ -93,6 +97,13 @@ import org.robolectric.util.DatabaseConfig
     dao.create(note2)
 
     assertThat(dao.countOf, equalTo(2L))
+
+    activity = Robolectric.buildActivity(classOf[PonyNote]).create.get
+    activity.fillListView()
+
+    //val listShadow = Robolectric.shadowOf(list)
+
+    //assertThat(listShadow.##, equalTo(2))
   }
 }
 
