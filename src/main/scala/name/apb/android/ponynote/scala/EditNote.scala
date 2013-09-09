@@ -40,8 +40,10 @@ class EditNote extends SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelp
     })
 
     if (getNoteIdFromIntent == -1) {
+      info("creating new note")
       this.setTitle("Create Note")
     } else {
+      info("editing note " + getNoteIdFromIntent)
       loadFromDb(getNoteIdFromIntent)
     }
   }
