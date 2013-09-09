@@ -1,5 +1,3 @@
-package name.apb.android.ponynote.scala
-
 /*
  * Pony Note
  * Copyright (C) 2013  Andre-Patrick Bubel <code@andre-bubel.de>
@@ -17,6 +15,8 @@ package name.apb.android.ponynote.scala
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+package name.apb.android.ponynote.scala
 
 import android.content.Intent
 import android.widget.Button
