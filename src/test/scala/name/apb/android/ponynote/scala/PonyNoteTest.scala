@@ -114,16 +114,10 @@ import java.util.Properties
     activity.onCreate(null)
     activity.onResume()
 
+    assertThat(list.getCount, equalTo(2))
+
     assertThat(list.getItemAtPosition(0).toString, equalTo("Hello"))
     assertThat(list.getItemAtPosition(1).toString, equalTo("World"))
-
-    try {list.getItemAtPosition(2)} catch {
-      case e: java.lang.IndexOutOfBoundsException => {}
-      case e: Exception => fail("wrong exception " + e)
-    }
-
-    // BUG: doesn't work
-    // assertThat(list.getChildCount,equalTo(2))
   }
 }
 
