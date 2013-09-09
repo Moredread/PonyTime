@@ -81,6 +81,18 @@ import java.util.Properties
     assertThat(shadowIntent.getComponent.getClassName, equalTo(classOf[AboutDialog].getName))
   }
 
+  @Test def clickNewButton() {
+    val newButton: Button = activity.findViewById(R.id.new_button).asInstanceOf[Button]
+    Robolectric.clickOn(newButton)
+
+    val shadowActivity: ShadowActivity = Robolectric.shadowOf(activity)
+    val startedIntent: Intent = shadowActivity.getNextStartedActivity
+    val shadowIntent: ShadowIntent = Robolectric.shadowOf(startedIntent)
+
+    assertThat(shadowIntent.getComponent.getClassName, equalTo(classOf[EditNote].getName))
+    assertThat(shadowIntent.getIntExtra(EditNote.NOTE_ID, -1), equalTo(-1))
+  }
+
   @Test def databaseShouldBeEmptyByDefault() {
     assertThat(dao.countOf, equalTo(0L))
   }
