@@ -29,9 +29,8 @@ import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.shadows._
-import org.hamcrest.CoreMatchers.equalTo
-import org.junit.Assert.assertNotNull
-import org.junit.Assert.assertThat
+import org.hamcrest.CoreMatchers._
+import org.junit.Assert._
 import java.lang.String
 import org.robolectric.util.DatabaseConfig
 import java.util.Properties
@@ -86,7 +85,9 @@ import java.util.Properties
     assertThat(dao.countOf, equalTo(0L))
   }
 
-  @Test def correctNumberOfEntries() {
+  @Test def entriesCreatedCorrectly() {
+    activity.onCreate(null)
+
     val note1: Note = new Note
     val note2: Note = new Note
 
@@ -98,12 +99,19 @@ import java.util.Properties
 
     assertThat(dao.countOf, equalTo(2L))
 
-    activity = Robolectric.buildActivity(classOf[PonyNote]).create.get
-    activity.fillListView()
+    activity.onCreate(null)
+    activity.onResume()
 
-    //val listShadow = Robolectric.shadowOf(list)
+    assertThat(list.getItemAtPosition(0).toString, equalTo("Hello"))
+    assertThat(list.getItemAtPosition(1).toString, equalTo("World"))
 
-    //assertThat(listShadow.##, equalTo(2))
+    try {list.getItemAtPosition(2)} catch {
+      case e: java.lang.IndexOutOfBoundsException => {}
+      case e: Exception => fail("wrong exception " + e)
+    }
+
+    // BUG: doesn't work
+    // assertThat(list.getChildCount,equalTo(2))
   }
 }
 
