@@ -4,6 +4,10 @@
 
 A simple android note taking app. Soon(tm) with secure syncing.
 
+WARNING: This is my first android project and I have decided to use Scala as the main programming language,
+which I'm learning too. The build setup is quite complicated and I'm quite sure I don't follow all best practices. So
+please use the app with caution and consider the code as the work of a beginner.
+
 ## Hints
 
 Needs Java 7, because of generics bug http://bugs.sun.com/view_bug.do?bug_id=6302954
