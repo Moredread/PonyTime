@@ -51,6 +51,7 @@ class PonyNote extends SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelp
     super.onResume()
 
     fillListView()
+    debug("List has " + noteListView.getCount + " entries")
   }
 
   def fillListView(): Unit = {
