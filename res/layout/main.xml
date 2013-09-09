@@ -14,12 +14,6 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Test"
-            android:id="@+id/textView"
-            android:textIsSelectable="true"
-            android:singleLine="false"
-            android:phoneNumber="false"
-            android:textSize="22dp"
             android:layout_weight="1"/>
 
         <Button
