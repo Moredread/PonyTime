@@ -34,6 +34,7 @@ import org.junit.Assert._
 import java.lang.String
 import org.robolectric.util.DatabaseConfig
 import java.util.Properties
+import android.view.View
 
 @DatabaseConfig.UsingDatabaseMap(classOf[SQLMap])
 @RunWith(classOf[RobolectricTestRunner]) class PonyNoteTest {
@@ -118,6 +119,36 @@ import java.util.Properties
 
     assertThat(list.getItemAtPosition(0).toString, equalTo("Hello"))
     assertThat(list.getItemAtPosition(1).toString, equalTo("World"))
+  }
+
+  @Test def clickEntry() {
+    activity.onCreate(null)
+
+    val note1: Note = new Note
+    val note2: Note = new Note
+
+    note1.setNote("Hello")
+    note2.setNote("World")
+
+    dao.create(note1)
+    dao.create(note2)
+
+    assertThat(dao.countOf, equalTo(2L))
+
+    activity.onCreate(null)
+    activity.onResume()
+
+    val position = 1
+
+    // TODO: maybe better to get actual view from the list
+    list.getAdapter().getView(position, null, null).performClick()
+
+    val shadowActivity: ShadowActivity = Robolectric.shadowOf(activity)
+    val startedIntent: Intent = shadowActivity.getNextStartedActivity
+    val shadowIntent: ShadowIntent = Robolectric.shadowOf(startedIntent)
+
+    assertThat(shadowIntent.getComponent.getClassName, equalTo(classOf[EditNote].getName))
+    assertThat(shadowIntent.getIntExtra(EditNote.NOTE_ID, -1), equalTo(note2.getId.intValue))
   }
 }
 

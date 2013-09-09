@@ -70,7 +70,10 @@ class PonyNote extends SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelp
         val note: Note = getItem(position)
 
         v.findViewById(R.id.note_text).asInstanceOf[TextView].setText(note.getNote)
-        v.onClick(EditNote.callMeWithNoteId(this.getContext, note.getId))
+        v.onClick({
+          info("Starting editing dialog of note " + position)
+          EditNote.callMeWithNoteId(this.getContext, note.getId)
+        })
 
         debug("Adding note " + position)
 
