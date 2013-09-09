@@ -138,10 +138,8 @@ import android.view.View
     activity.onCreate(null)
     activity.onResume()
 
-    val position = 1
-
-    // TODO: maybe better to get actual view from the list
-    list.getAdapter().getView(position, null, null).performClick()
+    list.setSelection(1)
+    Robolectric.clickOn(list.getSelectedView)
 
     val shadowActivity: ShadowActivity = Robolectric.shadowOf(activity)
     val startedIntent: Intent = shadowActivity.getNextStartedActivity
