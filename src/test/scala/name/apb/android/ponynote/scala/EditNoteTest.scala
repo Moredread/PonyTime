@@ -68,14 +68,15 @@ import java.util.Properties
 
   @Test def editingNoteHasPreviousTextSet() {
     val note = new Note()
-    note.setNote("Hello World")
+    val text = "Hello World"
+    note.setNote(text)
     dao.create(note)
 
     val intent = new Intent(Robolectric.getShadowApplication.getApplicationContext, classOf[EditNote])
     intent.putExtra(EditNote.NOTE_ID, note.getId)
     activity = Robolectric.buildActivity(classOf[EditNote]).withIntent(intent).create.get
 
-    assertThat(activity.noteEditText.text.toString, equalTo(note.getNote))
+    assertThat(activity.noteEditText.text.toString, equalTo(text))
   }
 }
 
