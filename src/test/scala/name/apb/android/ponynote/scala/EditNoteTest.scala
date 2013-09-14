@@ -69,6 +69,7 @@ import java.util.Properties
   @Test def editingNoteHasPreviousTextSet() {
     val note = new Note()
     val text = "Hello World"
+
     note.setNote(text)
     dao.create(note)
 
