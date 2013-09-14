@@ -130,10 +130,10 @@
                 <version>3.6.1</version>
                 <configuration>
                     <sdk>
-                        <platform>18</platform>
+                        <platform>16</platform>
                     </sdk>
                     <emulator>
-                        <avd>22</avd>
+                        <avd>18</avd>
                     </emulator>
                     <undeployBeforeDeploy>true</undeployBeforeDeploy>
                     <proguard>
