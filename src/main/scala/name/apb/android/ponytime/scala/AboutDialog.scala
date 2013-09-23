@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package name.apb.android.ponynote.scala
+package name.apb.android.ponytime.scala
 
 import org.scaloid.common.{STextView, SVerticalLayout, SActivity}
 import android.content.{Intent, Context}

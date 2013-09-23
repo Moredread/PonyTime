@@ -1,10 +1,10 @@
-# Pony Note
+# Pony Time
 
-[![Build Status](https://api.travis-ci.org/Moredread/PonyNote.png)](https://travis-ci.org/Moredread/PonyNote)
+[![Build Status](https://api.travis-ci.org/Moredread/PonyNote.png)](https://travis-ci.org/Moredread/PonyTime)
 
-A simple android note taking app. Soon(tm) with secure syncing.
+A simple android app, that helps you log, what you are doing. Soon(tm) with secure syncing.
 
-WARNING: This is my first android project and I have decided to use Scala as the main programming language,
+WARNING: This is my second android project and I have decided to use Scala as the main programming language,
 which I'm learning too. The build setup is quite complicated and I'm quite sure I don't follow all best practices. So
 please use the app with caution and consider the code as the work of a beginner.
 

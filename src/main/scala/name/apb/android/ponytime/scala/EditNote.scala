@@ -16,9 +16,9 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package name.apb.android.ponynote.scala
+package name.apb.android.ponytime.scala
 
-import name.apb.android.ponynote.java.db.{Note, DatabaseHelper}
+import name.apb.android.ponytime.java.db.{Note, DatabaseHelper}
 import android.os.Bundle
 import org.scaloid.common._
 import android.content.{Intent, Context}

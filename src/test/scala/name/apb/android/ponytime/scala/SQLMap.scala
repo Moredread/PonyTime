@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package name.apb.android.ponynote.scala
+package name.apb.android.ponytime.scala
 
 import java.sql.ResultSet
 import java.io.File

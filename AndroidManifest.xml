@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="name.apb.android.ponynote.scala" android:versionCode="1"
+    package="name.apb.android.ponytime.scala" android:versionCode="1"
     android:versionName="1.0">
     <uses-sdk android:targetSdkVersion="16"
               android:minSdkVersion="14" />
@@ -9,7 +9,7 @@
         android:icon="@drawable/ic_launcher">
 
         <activity
-            android:name=".PonyNote"
+            android:name=".PonyTime"
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

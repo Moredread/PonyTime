@@ -1,4 +1,4 @@
-package name.apb.android.ponynote.java.db;
+package name.apb.android.ponytime.java.db;
 
 /*
  * Pony Note

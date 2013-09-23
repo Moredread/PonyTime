@@ -16,7 +16,7 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package name.apb.android.ponynote.scala.db
+package name.apb.android.ponytime.scala.db
 
 import com.j256.ormlite.android.apptools.{OrmLiteSqliteOpenHelper, OpenHelperManager}
 import org.scaloid.common._

@@ -1,4 +1,4 @@
-package name.apb.android.ponynote.java.db;
+package name.apb.android.ponytime.java.db;
 
 /*
  * Pony Note
@@ -35,7 +35,7 @@ import java.sql.SQLException;
  */
 public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
-    private static final String DATABASE_NAME = "ponynote.db";
+    private static final String DATABASE_NAME = "ponytime.db";
     private static final int DATABASE_VERSION = 1;
 
     private Dao<Note, Integer> noteDao;

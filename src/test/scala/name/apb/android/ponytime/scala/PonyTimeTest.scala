@@ -16,14 +16,14 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
-package name.apb.android.ponynote.scala
+package name.apb.android.ponytime.scala
 
 import android.content.Intent
 import android.widget.Button
 import android.widget.ListView
 import com.j256.ormlite.dao.Dao
-import name.apb.android.ponynote.java.db.DatabaseHelper
-import name.apb.android.ponynote.java.db.Note
+import name.apb.android.ponytime.java.db.DatabaseHelper
+import name.apb.android.ponytime.java.db.Note
 import org.junit._
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -37,8 +37,8 @@ import java.util.Properties
 import android.view.View
 
 @DatabaseConfig.UsingDatabaseMap(classOf[SQLMap])
-@RunWith(classOf[RobolectricTestRunner]) class PonyNoteTest {
-  private var activity: PonyNote = null
+@RunWith(classOf[RobolectricTestRunner]) class PonyTimeTest {
+  private var activity: PonyTime = null
   private var helper: DatabaseHelper = null
   private var dao: Dao[Note, Integer] = null
   private var list: ListView = null
@@ -47,7 +47,7 @@ import android.view.View
   props.setProperty("robolectric.logging", "stdout")
 
   @Before def setUp() {
-    activity = Robolectric.buildActivity(classOf[PonyNote]).create.get
+    activity = Robolectric.buildActivity(classOf[PonyTime]).create.get
     helper = activity.getHelper()
     dao = helper.getNoteDao
     list = activity.noteListView
@@ -64,7 +64,7 @@ import android.view.View
   @Test def checkAppName() {
     val appName: String = activity.getResources.getString(R.string.app_name)
 
-    assertThat(appName, equalTo("Pony Note"))
+    assertThat(appName, equalTo("Pony Time"))
   }
 
   @Test def checkListEmptyAtStart() {
