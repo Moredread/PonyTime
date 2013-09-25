@@ -9,12 +9,13 @@ env:
     #- ANDROID_SDKS=android-10           ANDROID_TARGET=android-10  ANDROID_ABI=armeabi
     - ANDROID_SDKS=sysimg-16             ANDROID_TARGET=android-16  ANDROID_ABI=armeabi-v7a
     #- ANDROID_SDKS=android-17,sysimg-17 ANDROID_TARGET=android-17  ANDROID_ABI=armeabi-v7a
-    - ANDROID_SDKS=android-18            ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a
+    #- ANDROID_SDKS=android-18            ANDROID_TARGET=android-18  ANDROID_ABI=armeabi-v7a
 before_install:
   # Install base Android SDK
+  - mvn -version
   - sudo apt-get update -qq
   - if [ `uname -m` = x86_64 ]; then sudo apt-get install -qq libstdc++6:i386 lib32z1; fi
-  - wget -O android-sdk.tgz http://dl.google.com/android/android-sdk_r22.0.4-linux.tgz
+  - wget -O android-sdk.tgz http://dl.google.com/android/android-sdk_r22.2.1-linux.tgz
   - tar xzf android-sdk.tgz
   - export ANDROID_HOME=$PWD/android-sdk-linux
   - export PATH=${PATH}:${ANDROID_HOME}/tools:${ANDROID_HOME}/platform-tools
@@ -25,11 +26,14 @@ before_install:
   # Note that `echo y` only accepts the first license. This is actually convenient, since
   # it prevents the installation of the ATOM and MIPS emulator images. It might cause
   # issues in the future though.
-  - echo y | android update sdk --filter platform-tools,build-tools-18.0.1,android-16,extra-android-support,$ANDROID_SDKS --no-ui --force > /dev/null
+  - echo y | android update sdk --filter platform-tools,build-tools-18.1.0,android-16,extra-android-support,$ANDROID_SDKS --no-ui --force > /dev/null
 
   # Create and start emulator
   # - echo no | android create avd --force -n test -t $ANDROID_TARGET --abi $ANDROID_ABI
   # - emulator -avd test -no-skin -no-audio -no-window &
+
+install:
+  - mvn install -DskipTests=true -B -e
 
 #before_script:
 # - ./wait_for_emulator
@@ -37,4 +41,4 @@ before_install:
 #script: mvn install -Pintegration-tests -Dandroid.device=test
 
 script:
-  - mvn package
+  - mvn package -e
