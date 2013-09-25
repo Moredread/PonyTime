@@ -1,6 +1,6 @@
 # Pony Time
 
-[![Build Status](https://api.travis-ci.org/Moredread/PonyNote.png)](https://travis-ci.org/Moredread/PonyTime)
+[![Build Status](https://api.travis-ci.org/Moredread/PonyTime.png)](https://travis-ci.org/Moredread/PonyTime)
 
 A simple android app, that helps you log, what you are doing. Soon(tm) with secure syncing.
 
