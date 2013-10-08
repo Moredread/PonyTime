@@ -1,5 +1,5 @@
 /*
- * Pony Note
+ * Pony Time
  * Copyright (C) 2013  Andre-Patrick Bubel <code@andre-bubel.de>
  *
  * This program is free software: you can redistribute it and/or modify
