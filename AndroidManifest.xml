@@ -16,7 +16,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".EditNote" android:label="Edit Note" android:windowSoftInputMode="stateVisible|adjustResize" />
+        <activity android:name=".EditActivity" android:label="Edit Note" android:windowSoftInputMode="stateVisible|adjustResize" />
         <activity android:name=".AboutDialog" android:label="About"/>
     </application>
 </manifest>

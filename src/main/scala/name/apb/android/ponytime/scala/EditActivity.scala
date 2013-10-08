@@ -18,74 +18,74 @@
 
 package name.apb.android.ponytime.scala
 
-import name.apb.android.ponytime.java.db.{Note, DatabaseHelper}
+import name.apb.android.ponytime.java.db.{Activity, DatabaseHelper}
 import android.os.Bundle
 import org.scaloid.common._
 import android.content.{Intent, Context}
 import android.text.method.ScrollingMovementMethod
 
-class EditNote extends SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelper] {
+class EditActivity extends SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelper] {
 
-  lazy val noteEditText = new SEditText()
+  lazy val nameEditText = new SEditText()
   lazy val saveButton = new SButton("Save", {
     saveToDb(); finish()
   })
 
-  var noteId: Option[Integer] = None
+  var activityId: Option[Integer] = None
 
   onCreate {
     contentView(new SScrollView += new SVerticalLayout { this +=
-      noteEditText +=
+      nameEditText +=
       saveButton
     })
 
-    if (getNoteIdFromIntent == -1) {
-      info("creating new note")
-      this.setTitle("Create Note")
+    if (getActivityIdFromIntent == -1) {
+      info("creating new activity")
+      this.setTitle("Create Activity")
     } else {
-      info("editing note " + getNoteIdFromIntent)
-      loadFromDb(getNoteIdFromIntent)
+      info("editing activity " + getActivityIdFromIntent)
+      loadFromDb(getActivityIdFromIntent)
     }
   }
 
   /**
    * Returns the note ID from the given intent
    */
-  def getNoteIdFromIntent: Integer = {
-    getIntent.getIntExtra(EditNote.NOTE_ID, -1)
+  def getActivityIdFromIntent: Integer = {
+    getIntent.getIntExtra(EditActivity.ACTIVITY_ID, -1)
   }
 
   def saveToDb() {
-    val newNote: Note = new Note()
+    val newActivity: Activity = new Activity()
 
-    noteId match {
+    activityId match {
       case None => {}
-      case Some(i: Integer) => newNote.setId(i)
+      case Some(i: Integer) => newActivity.setId(i)
     }
 
-    newNote.setNote(noteEditText.text.toString)
+    newActivity.setName(nameEditText.text.toString)
 
-    val dao = getHelper.getNoteDao
+    val dao = getHelper.getActivityDao
 
-    dao.createOrUpdate(newNote)
+    dao.createOrUpdate(newActivity)
 
-    assert(newNote.getId != null)
+    assert(newActivity.getId != null)
 
     // update the node ID, as a new node might have been created
-    noteId = Some(newNote.getId)
+    activityId = Some(newActivity.getId)
   }
 
-  def loadFromDb(loadNoteId: Integer) {
-    val dao = getHelper.getNoteDao
-    val note = dao.queryForId(loadNoteId)
+  def loadFromDb(loadActivityId: Integer) {
+    val dao = getHelper.getActivityDao
+    val activity = dao.queryForId(loadActivityId)
 
-    noteEditText.setText(note.getNote)
-    noteId = Some(loadNoteId)
+    nameEditText.setText(activity.getName)
+    activityId = Some(loadActivityId)
   }
 }
 
-object EditNote {
-  val NOTE_ID = "noteId"
+object EditActivity {
+  val ACTIVITY_ID = "activityId"
 
   /**
    * Helper method to start this activity with a prepared intent. A new note is created.
@@ -93,18 +93,18 @@ object EditNote {
    * @param c       the calling context
    */
   def callMe(c: Context) {
-    c.startActivity(new Intent(c, classOf[EditNote]))
+    c.startActivity(new Intent(c, classOf[EditActivity]))
   }
 
   /**
    * Helper method to start this activity with a prepared intent
    *
    * @param c       the calling context
-   * @param noteId  the note id that should be edited
+   * @param activityId  the id of the activity that should be edited
    */
-  def callMeWithNoteId(c: Context, noteId: Integer) {
-    val intent = new Intent(c, classOf[EditNote])
-    intent.putExtra(NOTE_ID, noteId)
+  def callMeWithActivityId(c: Context, activityId: Integer) {
+    val intent = new Intent(c, classOf[EditActivity])
+    intent.putExtra(ACTIVITY_ID, activityId)
     c.startActivity(intent)
   }
 }

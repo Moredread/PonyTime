@@ -28,7 +28,7 @@ import android.text.util.Linkify
  * TODO: add libs
  */
 class AboutDialog extends SActivity {
-  val text = " - a note taking application for Android\n\nCopyright (C) 2013\nAndre-Patrick Bubel <code@andre-bubel.de>\n\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License along with this program.  If not, see\nhttp://www.gnu.org/licenses"
+  val text = " - a time tracking application for Android\n\nCopyright (C) 2013\nAndre-Patrick Bubel <code@andre-bubel.de>\n\nThis program is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.\n\nThis program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more details.\n\nYou should have received a copy of the GNU General Public License along with this program.  If not, see\nhttp://www.gnu.org/licenses"
   lazy val textView = new STextView()
 
   onCreate {

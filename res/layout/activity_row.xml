@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/note_text"
+    android:id="@+id/activity_text"
     android:textSize="25sp"
     android:text="Entry"
     android:paddingLeft="10sp"

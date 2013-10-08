@@ -30,7 +30,7 @@ import java.util.Date;
  * TODO: Tests and License
  */
 @DatabaseTable
-public class Note implements Serializable {
+public class Activity implements Serializable {
 
     private static final long serialVersionUID = -125453245326L;
 
@@ -43,7 +43,7 @@ public class Note implements Serializable {
     private Date lastChangeDate;
 
     @DatabaseField
-    private String note;
+    private String name;
 
     public Integer getId() {
         return id;
@@ -57,21 +57,21 @@ public class Note implements Serializable {
         return lastChangeDate;
     }
 
-    public String getNote() {
-        return note;
+    public String getName() {
+        return name;
     }
 
     /**
-     * This updates the note and adjusts the date.
+     * This updates the name and adjusts the date.
      */
-    public void setNote(String note) {
-        this.note = note;
+    public void setName(String name) {
+        this.name = name;
         this.lastChangeDate = new Date();
     }
 
     @Override
     public String toString() {
-        return this.note;
+        return this.name;
     }
 }
 

@@ -23,7 +23,7 @@ import android.widget.Button
 import android.widget.ListView
 import com.j256.ormlite.dao.Dao
 import name.apb.android.ponytime.java.db.DatabaseHelper
-import name.apb.android.ponytime.java.db.Note
+import name.apb.android.ponytime.java.db.Activity
 import org.junit._
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -36,20 +36,20 @@ import org.robolectric.util.{ActivityController, DatabaseConfig}
 import java.util.Properties
 
 @DatabaseConfig.UsingDatabaseMap(classOf[SQLMap])
-@RunWith(classOf[RobolectricTestRunner]) class EditNoteTest {
-  private var activityController: ActivityController[EditNote] = null
-  private var activity: EditNote = null
+@RunWith(classOf[RobolectricTestRunner]) class EditActivityTest {
+  private var activityController: ActivityController[EditActivity] = null
+  private var activity: EditActivity = null
   private var helper: DatabaseHelper = null
-  private var dao: Dao[Note, Integer] = null
+  private var dao: Dao[Activity, Integer] = null
 
   val props: Properties = System.getProperties
   props.setProperty("robolectric.logging", "stdout")
 
   @Before def setUp() {
-    activityController = Robolectric.buildActivity(classOf[EditNote]).create
+    activityController = Robolectric.buildActivity(classOf[EditActivity]).create
     activity = activityController.get
     helper = activity.getHelper()
-    dao = helper.getNoteDao
+    dao = helper.getActivityDao
 
     helper.getWritableDatabase
 
@@ -63,21 +63,21 @@ import java.util.Properties
   @Test def newEntryIsEmpty() {
     activity.onCreate()
 
-    assertThat(activity.noteEditText.text.length, equalTo(0))
+    assertThat(activity.nameEditText.text.length, equalTo(0))
   }
 
   @Test def editingNoteHasPreviousTextSet() {
-    val note = new Note()
+    val note = new Activity()
     val text = "Hello World"
 
-    note.setNote(text)
+    note.setName(text)
     dao.create(note)
 
-    val intent = new Intent(Robolectric.getShadowApplication.getApplicationContext, classOf[EditNote])
-    intent.putExtra(EditNote.NOTE_ID, note.getId)
-    activity = Robolectric.buildActivity(classOf[EditNote]).withIntent(intent).create.get
+    val intent = new Intent(Robolectric.getShadowApplication.getApplicationContext, classOf[EditActivity])
+    intent.putExtra(EditActivity.ACTIVITY_ID, note.getId)
+    activity = Robolectric.buildActivity(classOf[EditActivity]).withIntent(intent).create.get
 
-    assertThat(activity.noteEditText.text.toString, equalTo(text))
+    assertThat(activity.nameEditText.text.toString, equalTo(text))
   }
 }
 

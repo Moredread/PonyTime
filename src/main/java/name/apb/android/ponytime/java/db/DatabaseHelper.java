@@ -38,7 +38,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String DATABASE_NAME = "ponytime.db";
     private static final int DATABASE_VERSION = 1;
 
-    private Dao<Note, Integer> noteDao;
+    private Dao<Activity, Integer> activityDao;
 
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -50,7 +50,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             // TODO: check if db exists and drop table before creating it
             // Shouldn't be necessary, as db should not exist for a new application, but with current test setup the db
             // persists.
-            TableUtils.createTableIfNotExists(connectionSource, Note.class);
+            TableUtils.createTableIfNotExists(connectionSource, Activity.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to create databases", e);
         }
@@ -59,7 +59,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqliteDatabase, ConnectionSource connectionSource, int oldVer, int newVer) {
         try {
-            TableUtils.dropTable(connectionSource, Note.class, true);
+            TableUtils.dropTable(connectionSource, Activity.class, true);
             onCreate(sqliteDatabase, connectionSource);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to upgrade database from version " + oldVer + " to new "
@@ -67,10 +67,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         }
     }
 
-    public Dao<Note, Integer> getNoteDao() throws SQLException {
-        if (noteDao == null) {
-            noteDao = getDao(Note.class);
+    public Dao<Activity, Integer> getActivityDao() throws SQLException {
+        if (activityDao == null) {
+            activityDao = getDao(Activity.class);
         }
-        return noteDao;
+        return activityDao;
     }
 }

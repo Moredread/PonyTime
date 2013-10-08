@@ -22,7 +22,7 @@ import android.os.Bundle
 import android.content.Context
 
 import name.apb.android.ponytime.java.db.DatabaseHelper
-import name.apb.android.ponytime.java.db.Note
+import name.apb.android.ponytime.java.db.Activity
 import android.widget.{TextView, ArrayAdapter, ListView, Button}
 
 import android.view.{LayoutInflater, ViewGroup, View}
@@ -30,58 +30,58 @@ import android.view.{LayoutInflater, ViewGroup, View}
 import org.scaloid.common._
 
 class PonyTime extends SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelper] {
-  var noteListView: ListView = null
+  var activityListView: ListView = null
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.main)
 
     find[Button](R.id.new_button).onClick {
-      EditNote.callMe(this)
+      EditActivity.callMe(this)
     }
 
     find[Button](R.id.about_button).onClick {
       AboutDialog.callMe(this)
     }
 
-    noteListView = this.findViewById(R.id.noteListView).asInstanceOf[ListView]
+    activityListView = this.findViewById(R.id.activityListView).asInstanceOf[ListView]
   }
 
   override def onResume(): Unit = {
     super.onResume()
 
     fillListView()
-    debug("List has " + noteListView.getCount + " entries")
+    debug("List has " + activityListView.getCount + " entries")
   }
 
   def fillListView(): Unit = {
-    info("Restore note list view")
+    info("Restore activity list view")
 
-    val dao = getHelper.getNoteDao
+    val dao = getHelper.getActivityDao
     val builder = dao.queryBuilder
-    builder.orderBy(Note.LAST_CHANGED_DATE_COLUMN_NAME, false)
+    builder.orderBy(Activity.LAST_CHANGED_DATE_COLUMN_NAME, false)
     val list = dao.query(builder.prepare)
 
-    debug("We have " + list.size + " notes")
+    debug("We have " + list.size + " activities")
 
-    val noteAdapter: ArrayAdapter[Note] = new ArrayAdapter[Note](this, R.layout.note_row, list) {
+    val activityAdapter: ArrayAdapter[Activity] = new ArrayAdapter[Activity](this, R.layout.activity_row, list) {
       override def getView(position: Int, convertView: View, parent: ViewGroup): View = {
-        val v: View = Option(convertView) getOrElse getSystemService(Context.LAYOUT_INFLATER_SERVICE).asInstanceOf[LayoutInflater].inflate(R.layout.note_row, null)
-        val note: Note = getItem(position)
+        val v: View = Option(convertView) getOrElse getSystemService(Context.LAYOUT_INFLATER_SERVICE).asInstanceOf[LayoutInflater].inflate(R.layout.activity_row, null)
+        val activity: Activity = getItem(position)
 
-        v.findViewById(R.id.note_text).asInstanceOf[TextView].setText(note.getNote)
+        v.findViewById(R.id.activity_text).asInstanceOf[TextView].setText(activity.getName)
         v.onClick({
-          info("Starting editing dialog of note " + position)
-          EditNote.callMeWithNoteId(this.getContext, note.getId)
+          info("Starting editing dialog of activity " + position)
+          EditActivity.callMeWithActivityId(this.getContext, activity.getId)
         })
 
-        debug("Adding note " + position)
+        debug("Adding activity " + position)
 
         return v
       }
     }
 
-    noteListView.setAdapter(noteAdapter)
+    activityListView.setAdapter(activityAdapter)
   }
 
 }

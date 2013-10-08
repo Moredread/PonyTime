@@ -23,7 +23,7 @@ import android.widget.Button
 import android.widget.ListView
 import com.j256.ormlite.dao.Dao
 import name.apb.android.ponytime.java.db.DatabaseHelper
-import name.apb.android.ponytime.java.db.Note
+import name.apb.android.ponytime.java.db.Activity
 import org.junit._
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -40,7 +40,7 @@ import android.view.View
 @RunWith(classOf[RobolectricTestRunner]) class PonyTimeTest {
   private var activity: PonyTime = null
   private var helper: DatabaseHelper = null
-  private var dao: Dao[Note, Integer] = null
+  private var dao: Dao[Activity, Integer] = null
   private var list: ListView = null
 
   val props: Properties = System.getProperties
@@ -49,8 +49,8 @@ import android.view.View
   @Before def setUp() {
     activity = Robolectric.buildActivity(classOf[PonyTime]).create.get
     helper = activity.getHelper()
-    dao = helper.getNoteDao
-    list = activity.noteListView
+    dao = helper.getActivityDao
+    list = activity.activityListView
 
     helper.getWritableDatabase
 
@@ -90,8 +90,8 @@ import android.view.View
     val startedIntent: Intent = shadowActivity.getNextStartedActivity
     val shadowIntent: ShadowIntent = Robolectric.shadowOf(startedIntent)
 
-    assertThat(shadowIntent.getComponent.getClassName, equalTo(classOf[EditNote].getName))
-    assertThat(shadowIntent.getIntExtra(EditNote.NOTE_ID, -1), equalTo(-1))
+    assertThat(shadowIntent.getComponent.getClassName, equalTo(classOf[EditActivity].getName))
+    assertThat(shadowIntent.getIntExtra(EditActivity.ACTIVITY_ID, -1), equalTo(-1))
   }
 
   @Test def databaseShouldBeEmptyByDefault() {
@@ -101,11 +101,11 @@ import android.view.View
   @Test def entriesCreatedCorrectly() {
     activity.onCreate(null)
 
-    val note1: Note = new Note
-    val note2: Note = new Note
+    val note1: Activity = new Activity
+    val note2: Activity = new Activity
 
-    note1.setNote("Hello")
-    note2.setNote("World")
+    note1.setName("Hello")
+    note2.setName("World")
 
     dao.create(note1)
     dao.create(note2)
@@ -124,11 +124,11 @@ import android.view.View
   @Test def clickEntry() {
     activity.onCreate(null)
 
-    val note1: Note = new Note
-    val note2: Note = new Note
+    val note1: Activity = new Activity
+    val note2: Activity = new Activity
 
-    note1.setNote("Hello")
-    note2.setNote("World")
+    note1.setName("Hello")
+    note2.setName("World")
 
     dao.create(note1)
     dao.create(note2)
@@ -145,8 +145,8 @@ import android.view.View
     val startedIntent: Intent = shadowActivity.getNextStartedActivity
     val shadowIntent: ShadowIntent = Robolectric.shadowOf(startedIntent)
 
-    assertThat(shadowIntent.getComponent.getClassName, equalTo(classOf[EditNote].getName))
-    assertThat(shadowIntent.getIntExtra(EditNote.NOTE_ID, -1), equalTo(note2.getId.intValue))
+    assertThat(shadowIntent.getComponent.getClassName, equalTo(classOf[EditActivity].getName))
+    assertThat(shadowIntent.getIntExtra(EditActivity.ACTIVITY_ID, -1), equalTo(note2.getId.intValue))
   }
 }
 
