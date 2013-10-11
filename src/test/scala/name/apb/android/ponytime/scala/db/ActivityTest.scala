@@ -93,5 +93,30 @@ import name.apb.android.ponytime.scala._
     assertTrue(createDate.before(activity.getLastChangeDate))
   }
 
+  @Test def addActivityToDB() {
+    val activity = new Activity("Hello World")
+
+    dao.create(activity)
+
+    assertNotNull(activity.getId)
+
+    val dbActivity = dao.queryForId(activity.getId)
+
+    assertThat(dbActivity.getName, equalTo(activity.getName))
+    assertThat(dbActivity.getId, equalTo(activity.getId))
+    assertThat(dbActivity.getLastChangeDate, equalTo(activity.getLastChangeDate))
+  }
+
+  @Test def deleteActivityFromDB() {
+    val activity = new Activity("Hello World")
+
+    dao.create(activity)
+
+    assertTrue(dao.idExists(activity.getId))
+
+    dao.delete(activity)
+
+    assertFalse(dao.idExists(activity.getId))
+  }
 }
 
