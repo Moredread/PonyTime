@@ -46,10 +46,11 @@ public class Activity implements Serializable {
     private String name;
 
     // for OrmLite
-    public Activity() {}
+    public Activity() {
+    }
 
     public Activity(String name) {
-      this.setName(name);
+        this.setName(name);
     }
 
     public Integer getId() {

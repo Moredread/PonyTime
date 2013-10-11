@@ -47,7 +47,7 @@ import name.apb.android.ponytime.scala._
 
   @Before def setUp() {
     activity = Robolectric.buildActivity(classOf[PonyTime]).create.get
-    helper = activity.getHelper()
+    helper = activity.getHelper
     dao = helper.getActivityDao
 
     helper.getWritableDatabase

@@ -48,7 +48,7 @@ import android.view.View
 
   @Before def setUp() {
     activity = Robolectric.buildActivity(classOf[PonyTime]).create.get
-    helper = activity.getHelper()
+    helper = activity.getHelper
     dao = helper.getActivityDao
     list = activity.activityListView
 

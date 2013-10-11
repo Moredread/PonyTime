@@ -19,24 +19,24 @@
 package name.apb.android.ponytime.scala
 
 import name.apb.android.ponytime.java.db.{Activity, DatabaseHelper}
-import android.os.Bundle
 import org.scaloid.common._
 import android.content.{Intent, Context}
-import android.text.method.ScrollingMovementMethod
 
 class EditActivity extends SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelper] {
 
   lazy val nameEditText = new SEditText()
   lazy val saveButton = new SButton("Save", {
-    saveToDb(); finish()
+    saveToDb();
+    finish()
   })
 
   var activityId: Option[Integer] = None
 
   onCreate {
-    contentView(new SScrollView += new SVerticalLayout { this +=
-      nameEditText +=
-      saveButton
+    contentView(new SScrollView += new SVerticalLayout {
+      this +=
+        nameEditText +=
+        saveButton
     })
 
     if (getActivityIdFromIntent == -1) {
