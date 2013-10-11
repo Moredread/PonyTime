@@ -32,7 +32,7 @@ import java.util.Date;
 @DatabaseTable
 public class Category implements Serializable {
 
-    private static final long serialVersionUID = -125453245326L;
+    private static final long serialVersionUID = -237842367L;
 
     public static final String LAST_CHANGED_DATE_COLUMN_NAME = "last_changed_date";
 
