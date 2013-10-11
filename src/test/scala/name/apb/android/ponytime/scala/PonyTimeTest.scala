@@ -57,8 +57,7 @@ import android.view.View
     // reset database
     // TODO: recreate via ORMLite, but no idea how to do that
 
-    val allNotes = dao.queryForAll()
-    dao.delete(allNotes)
+    dao.delete(dao.queryForAll())
   }
 
   @Test def checkAppName() {
@@ -101,14 +100,14 @@ import android.view.View
   @Test def entriesCreatedCorrectly() {
     activity.onCreate(null)
 
-    val note1: Activity = new Activity
-    val note2: Activity = new Activity
+    val activity1: Activity = new Activity
+    val activity2: Activity = new Activity
 
-    note1.setName("Hello")
-    note2.setName("World")
+    activity1.setName("Hello")
+    activity2.setName("World")
 
-    dao.create(note1)
-    dao.create(note2)
+    dao.create(activity1)
+    dao.create(activity2)
 
     assertThat(dao.countOf, equalTo(2L))
 
@@ -124,14 +123,14 @@ import android.view.View
   @Test def clickEntry() {
     activity.onCreate(null)
 
-    val note1: Activity = new Activity
-    val note2: Activity = new Activity
+    val activity1: Activity = new Activity
+    val activity2: Activity = new Activity
 
-    note1.setName("Hello")
-    note2.setName("World")
+    activity1.setName("Hello")
+    activity2.setName("World")
 
-    dao.create(note1)
-    dao.create(note2)
+    dao.create(activity1)
+    dao.create(activity2)
 
     assertThat(dao.countOf, equalTo(2L))
 
@@ -146,7 +145,7 @@ import android.view.View
     val shadowIntent: ShadowIntent = Robolectric.shadowOf(startedIntent)
 
     assertThat(shadowIntent.getComponent.getClassName, equalTo(classOf[EditActivity].getName))
-    assertThat(shadowIntent.getIntExtra(EditActivity.ACTIVITY_ID, -1), equalTo(note2.getId.intValue))
+    assertThat(shadowIntent.getIntExtra(EditActivity.ACTIVITY_ID, -1), equalTo(activity2.getId.intValue))
   }
 }
 
