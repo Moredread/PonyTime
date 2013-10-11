@@ -45,6 +45,13 @@ public class Activity implements Serializable {
     @DatabaseField
     private String name;
 
+    // for OrmLite
+    public Activity() {}
+
+    public Activity(String name) {
+      this.setName(name);
+    }
+
     public Integer getId() {
         return id;
     }
