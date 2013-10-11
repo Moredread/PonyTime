@@ -100,11 +100,8 @@ import android.view.View
   @Test def entriesCreatedCorrectly() {
     activity.onCreate(null)
 
-    val activity1: Activity = new Activity
-    val activity2: Activity = new Activity
-
-    activity1.setName("Hello")
-    activity2.setName("World")
+    val activity1: Activity = new Activity("Hello")
+    val activity2: Activity = new Activity("World")
 
     dao.create(activity1)
     dao.create(activity2)
@@ -123,11 +120,8 @@ import android.view.View
   @Test def clickEntry() {
     activity.onCreate(null)
 
-    val activity1: Activity = new Activity
-    val activity2: Activity = new Activity
-
-    activity1.setName("Hello")
-    activity2.setName("World")
+    val activity1: Activity = new Activity("Hello")
+    val activity2: Activity = new Activity("World")
 
     dao.create(activity1)
     dao.create(activity2)
