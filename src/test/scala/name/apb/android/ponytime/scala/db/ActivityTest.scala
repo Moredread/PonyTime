@@ -31,7 +31,7 @@ import org.robolectric.RobolectricTestRunner
 import org.robolectric.shadows._
 import org.hamcrest.CoreMatchers._
 import org.junit.Assert._
-import java.lang.String
+import java.lang.{IllegalArgumentException, String}
 import org.robolectric.util.DatabaseConfig
 import java.util.{Date, Properties}
 import name.apb.android.ponytime.scala._
@@ -72,6 +72,15 @@ import name.apb.android.ponytime.scala._
     val activity = new Activity(name)
 
     assertThat(activity.getName, equalTo(name))
+  }
+
+  @Test def createActivityWithNameAsNull() {
+    try {
+      val activity = new Activity(null)
+      fail("activity constructor should throw exception when called with null name")
+    } catch {
+      case e: IllegalArgumentException => {}
+    }
   }
 
   @Test def lastChangeDateOnCreate() {

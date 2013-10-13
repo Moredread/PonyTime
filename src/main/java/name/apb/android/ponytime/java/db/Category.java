@@ -20,6 +20,7 @@ package name.apb.android.ponytime.java.db;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import name.apb.android.ponytime.scala.util;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -50,6 +51,7 @@ public class Category implements Serializable {
     }
 
     public Category(String name) {
+        util.assertNotNull(name, "parameter name must not be null");
         this.setName(name);
     }
 

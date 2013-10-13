@@ -24,6 +24,8 @@ import com.j256.ormlite.table.DatabaseTable;
 import java.io.Serializable;
 import java.util.Date;
 
+import name.apb.android.ponytime.scala.util;
+
 /**
  * Counter information object saved to the database.
  * <p/>
@@ -45,12 +47,21 @@ public class Activity implements Serializable {
     @DatabaseField
     private String name;
 
+    @DatabaseField(foreign = true, foreignAutoCreate = true, foreignAutoRefresh = true)
+    private Category category;
+
     // for OrmLite
     public Activity() {
     }
 
     public Activity(String name) {
+        this(name, null);
+    }
+
+    public Activity(String name, Category category) {
+        util.assertNotNull(name, "parameter name must not be null");
         this.setName(name);
+        this.setCategory(category);
     }
 
     public Integer getId() {
@@ -74,6 +85,15 @@ public class Activity implements Serializable {
      */
     public void setName(String name) {
         this.name = name;
+        this.lastChangeDate = new Date();
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
         this.lastChangeDate = new Date();
     }
 

@@ -19,8 +19,7 @@
 package name.apb.android.ponytime.scala.db
 
 import com.j256.ormlite.dao.Dao
-import name.apb.android.ponytime.java.db.DatabaseHelper
-import name.apb.android.ponytime.java.db.Category
+import name.apb.android.ponytime.java.db.{Category, DatabaseHelper}
 import org.junit._
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
@@ -30,6 +29,7 @@ import org.junit.Assert._
 import org.robolectric.util.DatabaseConfig
 import java.util.{Date, Properties}
 import name.apb.android.ponytime.scala._
+import java.lang.IllegalArgumentException
 
 @DatabaseConfig.UsingDatabaseMap(classOf[SQLMap])
 @RunWith(classOf[RobolectricTestRunner]) class CategoryTest {
@@ -67,6 +67,15 @@ import name.apb.android.ponytime.scala._
     val category = new Category(name)
 
     assertThat(category.getName, equalTo(name))
+  }
+
+  @Test def createCategoryWithNameAsNull() {
+    try {
+      val category = new Category(null)
+      fail("activity constructor should throw exception when called with null name")
+    } catch {
+      case e: IllegalArgumentException => {}
+    }
   }
 
   @Test def lastChangeDateOnCreate() {
