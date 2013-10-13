@@ -45,6 +45,14 @@ public class Category implements Serializable {
     @DatabaseField
     private String name;
 
+    // for OrmLite
+    public Category() {
+    }
+
+    public Category(String name) {
+        this.setName(name);
+    }
+
     public Integer getId() {
         return id;
     }

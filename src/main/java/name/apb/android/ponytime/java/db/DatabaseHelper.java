@@ -52,6 +52,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             // Shouldn't be necessary, as db should not exist for a new application, but with current test setup the db
             // persists.
             TableUtils.createTableIfNotExists(connectionSource, Activity.class);
+            TableUtils.createTableIfNotExists(connectionSource, Category.class);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to create databases", e);
         }
@@ -61,6 +62,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqliteDatabase, ConnectionSource connectionSource, int oldVer, int newVer) {
         try {
             TableUtils.dropTable(connectionSource, Activity.class, true);
+            TableUtils.dropTable(connectionSource, Category.class, true);
             onCreate(sqliteDatabase, connectionSource);
         } catch (SQLException e) {
             Log.e(DatabaseHelper.class.getName(), "Unable to upgrade database from version " + oldVer + " to new "
