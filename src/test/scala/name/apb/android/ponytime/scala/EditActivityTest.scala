@@ -19,8 +19,6 @@
 package name.apb.android.ponytime.scala
 
 import android.content.Intent
-import android.widget.Button
-import android.widget.ListView
 import com.j256.ormlite.dao.Dao
 import name.apb.android.ponytime.java.db.DatabaseHelper
 import name.apb.android.ponytime.java.db.Activity
@@ -28,10 +26,8 @@ import org.junit._
 import org.junit.runner.RunWith
 import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
-import org.robolectric.shadows._
 import org.hamcrest.CoreMatchers._
 import org.junit.Assert._
-import java.lang.String
 import org.robolectric.util.{ActivityController, DatabaseConfig}
 import java.util.Properties
 

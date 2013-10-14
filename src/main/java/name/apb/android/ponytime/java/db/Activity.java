@@ -20,11 +20,10 @@ package name.apb.android.ponytime.java.db;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
+import name.apb.android.ponytime.scala.util;
 
 import java.io.Serializable;
 import java.util.Date;
-
-import name.apb.android.ponytime.scala.util;
 
 /**
  * Counter information object saved to the database.

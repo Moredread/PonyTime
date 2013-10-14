@@ -34,7 +34,6 @@ import org.junit.Assert._
 import java.lang.String
 import org.robolectric.util.DatabaseConfig
 import java.util.Properties
-import android.view.View
 
 @DatabaseConfig.UsingDatabaseMap(classOf[SQLMap])
 @RunWith(classOf[RobolectricTestRunner]) class PonyTimeTest {
