@@ -22,7 +22,13 @@ import name.apb.android.ponytime.java.db.{Activity, DatabaseHelper}
 import org.scaloid.common._
 import android.content.{Intent, Context}
 
-class EditActivity extends SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelper] {
+import com.actionbarsherlock.app.ActionBar
+import com.actionbarsherlock.view.Menu
+import com.actionbarsherlock.view.MenuItem
+import com.actionbarsherlock.view.MenuInflater
+import com.actionbarsherlock.app.SherlockActivity
+
+class EditActivity extends SherlockActivity with SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelper] {
 
   lazy val nameEditText = new SEditText()
   lazy val saveButton = new SButton("Save", {

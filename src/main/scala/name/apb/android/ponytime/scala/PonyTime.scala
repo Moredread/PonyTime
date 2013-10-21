@@ -25,11 +25,17 @@ import name.apb.android.ponytime.java.db.DatabaseHelper
 import name.apb.android.ponytime.java.db.Activity
 import android.widget.{TextView, ArrayAdapter, ListView, Button}
 
+import com.actionbarsherlock.app.ActionBar
+import com.actionbarsherlock.view.Menu
+import com.actionbarsherlock.view.MenuItem
+import com.actionbarsherlock.view.MenuInflater
+import com.actionbarsherlock.app.SherlockActivity
+
 import android.view.{LayoutInflater, ViewGroup, View}
 
 import org.scaloid.common._
 
-class PonyTime extends SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelper] {
+class PonyTime extends SherlockActivity with SActivity with db.ORMLiteDatabaseHelperTrait[DatabaseHelper] {
   var activityListView: ListView = null
 
   override def onCreate(savedInstanceState: Bundle): Unit = {
